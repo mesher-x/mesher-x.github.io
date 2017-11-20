@@ -1,17 +1,28 @@
-var ul = document.createElement('ul');
-$('#root').append("<ul id='newList'></ul>");
-$("#newList").append("<li id='listItem'></li>");
-$("#listItem").append("<span>Сделать задание #3 по web-программированию</span>")
-$("#listItem").append("<button onclick='removeDummy()'>Удалить</button>")
-function removeDummy() {
-    var elem = document.getElementById('listItem');
-    elem.parentNode.removeChild(elem);
-    return false;
+window.onload = init;
+var id = 0;
+
+function init() {
+	$('#root').append('<ul id="newList"></ul>');
+	Add();
+	$('#root').append('<input id="add_task_input"/>');
+	$('#root').append('<button type="button" id="add_task" onclick="Add()"/>Добавить</button>');
 }
-$('#root').append("<input id=add_task_input/>");
-$('#root').append("<button id=add_task onclick='Add()'/>Добавить</button>");
+
+function removeDummy(_id) {
+    document.getElementById(_id).parentNode.removeChild(document.getElementById(_id));
+}
+
 function Add() {
-    $("#newList").append("<li>" + document.getElementById('add_task_input').value + "</li>");
+	var text = '';
+	if (id > 0) {
+		text = document.getElementById("add_task_input").value;
+	} else {
+		text = 'Сделать задание #3 по web-программированию';
+	}
+    $('#newList').append('<li id="' + id.toString() + '"></li>');
+    $('#' + id).append("<span>" + text + "</span>");
+	$('#' + id).append('<button type="button" onclick="removeDummy(' + id.toString() + ')">Удалить</button>');
+    id += 1;
 }
 // добавляет в div с id=root список ul,
 // добавляет в этот список элемент li,
